@@ -22,7 +22,7 @@ function toPoints(text: string, keys: KeyCoord[]) {
 export default function App() {
   // 기본값: 다크 배경에서 잘 보이는 사이언 톤
   const [text, setText] = useState("defqon");
-  const [color, setColor] = useState("#22d3ee"); // cyan-400
+  const [color, setColor] = useState("#ffffff");
   const [width, setWidth] = useState(6);
   const [smooth, setSmooth] = useState(0.4);
   const [showDots, setShowDots] = useState(false);
@@ -47,16 +47,25 @@ export default function App() {
     }
   };
 
+  const handleReset = () => {
+    setText("defqon");
+    setColor("#ffffff");
+    setWidth(6);
+    setSmooth(0.4);
+    setShowDots(false);
+    setShowKeys(true);
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-cyan-400/20">
+    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-cyan-400/20">
       {/* 헤더 */}
-      <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-black/40 bg-black/60 border-b border-white/10">
+      <header className="sticky top-0 z-20 bg-[#0a0a0a] border-b border-white/20">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
               <span className="text-cyan-300 text-xs font-bold">KS</span>
             </div>
-            <h1 className="text-lg font-semibold tracking-tight">
+            <h1 className="text-lg font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-emerald-300">
               KeySignature
             </h1>
             <span className="ml-2 text-xs text-white/50 hidden sm:inline">
@@ -66,11 +75,11 @@ export default function App() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowOptions((v) => !v)}
-              className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sm"
+              className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
             >
               Options
             </button>
-            <label className="hidden sm:inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer">
+            <label className="hidden sm:inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg border border-white/20 bg-white/10 hover:bg-white/15 cursor-pointer">
               <input
                 type="checkbox"
                 className="accent-cyan-400"
@@ -79,6 +88,31 @@ export default function App() {
               />
               Show keys
             </label>
+
+            {/* Actions (Desktop) */}
+            <div className="hidden sm:flex items-center gap-2">
+              <button
+                onClick={handleDownloadSVG}
+                title="SVG로 다운로드"
+                className="px-3 py-1.5 rounded-lg bg-cyan-500/30 hover:bg-cyan-500/40 border border-cyan-400/40 text-cyan-200 text-sm"
+              >
+                SVG
+              </button>
+              <button
+                onClick={handleDownloadPNG}
+                title="PNG로 다운로드"
+                className="px-3 py-1.5 rounded-lg bg-emerald-500/30 hover:bg-emerald-500/40 border border-emerald-400/40 text-emerald-200 text-sm"
+              >
+                PNG
+              </button>
+              <button
+                onClick={handleReset}
+                title="모든 옵션 초기화"
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
+              >
+                Reset
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -104,22 +138,41 @@ export default function App() {
           <div className="flex items-end gap-2 sm:hidden">
             <button
               onClick={() => setShowOptions((v) => !v)}
-              className="flex-1 px-3 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sm"
+              className="flex-1 px-3 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
             >
               Options
             </button>
             <button
               onClick={() => setShowKeys((v) => !v)}
-              className="px-3 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sm"
+              className="px-3 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
             >
               {showKeys ? "Hide keys" : "Show keys"}
+            </button>
+            {/* Actions (Mobile) */}
+            <button
+              onClick={handleDownloadSVG}
+              className="px-3 py-2.5 rounded-lg bg-cyan-500/30 hover:bg-cyan-500/40 border border-cyan-400/40 text-cyan-200 text-sm"
+            >
+              SVG
+            </button>
+            <button
+              onClick={handleDownloadPNG}
+              className="px-3 py-2.5 rounded-lg bg-emerald-500/30 hover:bg-emerald-500/40 border border-emerald-400/40 text-emerald-200 text-sm"
+            >
+              PNG
+            </button>
+            <button
+              onClick={handleReset}
+              className="px-3 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
+            >
+              Reset
             </button>
           </div>
         </div>
 
         {/* 옵션 패널 (토글) */}
         {showOptions && (
-          <section className="rounded-xl border border-white/10 bg-white/5 p-4 grid gap-4 sm:grid-cols-2">
+          <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 grid gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
               <label className="text-xs text-white/60">Stroke Color</label>
               <div className="flex items-center gap-3">
@@ -127,7 +180,7 @@ export default function App() {
                   type="color"
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
-                  className="h-10 w-10 cursor-pointer bg-transparent"
+                  className="h-10 w-10 cursor-pointer bg-transparent rounded-md overflow-hidden"
                   title="색상"
                 />
                 <input
@@ -136,6 +189,27 @@ export default function App() {
                   className="flex-1 px-3 py-2 rounded-md bg-black border border-white/10 text-sm
                              outline-none focus:ring-2 focus:ring-cyan-500/60"
                 />
+              </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {[
+                  "#22d3ee",
+                  "#38bdf8",
+                  "#60a5fa",
+                  "#a78bfa",
+                  "#f472b6",
+                  "#34d399",
+                  "#f59e0b",
+                  "#ef4444",
+                ].map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setColor(c)}
+                    className="h-7 w-7 rounded-md border border-white/10 hover:brightness-110"
+                    style={{ backgroundColor: c }}
+                    aria-label={`pick ${c}`}
+                    title={c}
+                  />
+                ))}
               </div>
             </div>
 
@@ -198,22 +272,6 @@ export default function App() {
           <div className="mt-2 flex items-center justify-between text-xs text-white/40">
             <span>Layout: QWERTY</span>
             <span>{points.length} points</span>
-          </div>
-
-          {/* 다운로드 버튼들 */}
-          <div className="mt-4 flex gap-3 justify-center">
-            <button
-              onClick={handleDownloadSVG}
-              className="px-4 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/30 text-cyan-300 text-sm font-medium transition-colors"
-            >
-              SVG 다운로드
-            </button>
-            <button
-              onClick={handleDownloadPNG}
-              className="px-4 py-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/30 text-emerald-300 text-sm font-medium transition-colors"
-            >
-              PNG 다운로드
-            </button>
           </div>
         </section>
       </main>
