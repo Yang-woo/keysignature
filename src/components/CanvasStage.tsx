@@ -12,6 +12,7 @@ interface Props {
   showDots?: boolean;
   showKeys?: boolean;
   keys?: KeyCoord[]; // 키보드 오버레이
+  onKeyClick?: (label: string) => void; // 키 클릭 처리
 }
 
 const CanvasStage = forwardRef<SVGSVGElement, Props>(
@@ -24,6 +25,7 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
       showDots = false,
       showKeys = true,
       keys = [],
+      onKeyClick,
     },
     ref
   ) => {
@@ -63,7 +65,11 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
           keys.map((k) => {
             const rx = 10;
             return (
-              <g key={k.id}>
+              <g
+                key={k.id}
+                onClick={() => k.label && onKeyClick?.(k.label)}
+                className={onKeyClick ? "cursor-pointer" : undefined}
+              >
                 <rect
                   x={k.x + 2}
                   y={k.y + 2}
