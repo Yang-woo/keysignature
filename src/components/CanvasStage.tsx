@@ -1,4 +1,4 @@
-import { useMemo, useRef, useEffect, forwardRef } from "react";
+import { useMemo, useEffect, forwardRef } from "react";
 import { buildPathFromPoints } from "../lib/path";
 import type { KeyCoord } from "../types";
 
