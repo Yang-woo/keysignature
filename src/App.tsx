@@ -62,8 +62,8 @@ export default function App() {
       <header className="sticky top-0 z-20 bg-[#0a0a0a] border-b border-white/20">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
-              <span className="text-cyan-300 text-xs font-bold">KS</span>
+            <div className="h-7 w-7 rounded-md bg-white/10 ring-1 ring-white/30 grid place-items-center">
+              <span className="text-white text-xs font-bold">KS</span>
             </div>
             <h1 className="text-lg font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-emerald-300">
               KeySignature
@@ -104,7 +104,7 @@ export default function App() {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full max-w-md px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-cyan-500/60 text-center"
+          className="w-full max-w-md px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-center text-lg outline-none backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-cyan-500/60"
         />
 
         <section className="w-full">
@@ -119,115 +119,114 @@ export default function App() {
             keys={qwertyLayout.keys}
             onKeyClick={handleKeyClick}
           />
-          <div className="mt-2 flex items-center justify-between text-xs text-white/40">
-            <span>Layout: QWERTY</span>
-            <span>{points.length} points</span>
-          </div>
         </section>
 
-        <div className="mt-auto w-full">
-          <div className="flex justify-center">
-            <button
-              onClick={() => setShowOptions((v) => !v)}
-              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
-            >
-              Options
-            </button>
-          </div>
-          {showOptions && (
-            <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 grid gap-4 sm:grid-cols-2">
-              <div className="grid gap-2">
-                <label className="text-xs text-white/60">Stroke Color</label>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="color"
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
-                    className="h-10 w-10 cursor-pointer bg-transparent rounded-md overflow-hidden"
-                    title="색상"
-                  />
-                  <input
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-md bg-black border border-white/10 text-sm outline-none focus:ring-2 focus:ring-cyan-500/60"
-                  />
-                </div>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {[
-                    "#22d3ee",
-                    "#38bdf8",
-                    "#60a5fa",
-                    "#a78bfa",
-                    "#f472b6",
-                    "#34d399",
-                    "#f59e0b",
-                    "#ef4444",
-                  ].map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setColor(c)}
-                      className="h-7 w-7 rounded-md border border-white/10 hover:brightness-110"
-                      style={{ backgroundColor: c }}
-                      aria-label={`pick ${c}`}
-                      title={c}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid gap-2">
-                <label className="text-xs text-white/60">Stroke Width: {width}px</label>
-                <input
-                  type="range"
-                  min={1}
-                  max={16}
-                  value={width}
-                  onChange={(e) => setWidth(+e.target.value)}
-                  className="w-full accent-cyan-400"
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <label className="text-xs text-white/60">Smoothing: {smooth}</label>
-                <input
-                  type="range"
-                  min={0}
-                  max={1}
-                  step={0.05}
-                  value={smooth}
-                  onChange={(e) => setSmooth(+e.target.value)}
-                  className="w-full accent-cyan-400"
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <label className="text-xs text-white/60">Show Dots</label>
-                <label className="inline-flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    className="accent-cyan-400"
-                    checked={showDots}
-                    onChange={(e) => setShowDots(e.target.checked)}
-                  />
-                  입력 지점 표시
-                </label>
-              </div>
-
-              <div className="grid gap-2">
-                <label className="text-xs text-white/60">Show Keys</label>
-                <label className="inline-flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    className="accent-cyan-400"
-                    checked={showKeys}
-                    onChange={(e) => setShowKeys(e.target.checked)}
-                  />
-                  키보드 표시
-                </label>
-              </div>
-            </section>
-          )}
+        <div className="w-full flex justify-center">
+          <button
+            onClick={() => setShowOptions((v) => !v)}
+            className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-black font-medium shadow hover:from-cyan-400 hover:to-emerald-400"
+          >
+            Options
+          </button>
         </div>
+        {showOptions && (
+          <section className="w-full mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-2">
+              <label className="text-xs text-white/60">Stroke Color</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  className="h-10 w-10 cursor-pointer bg-transparent rounded-md overflow-hidden"
+                  title="색상"
+                />
+                <input
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  className="flex-1 px-3 py-2 rounded-md bg-black border border-white/10 text-sm outline-none focus:ring-2 focus:ring-cyan-500/60"
+                />
+              </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {[
+                  "#22d3ee",
+                  "#38bdf8",
+                  "#60a5fa",
+                  "#a78bfa",
+                  "#f472b6",
+                  "#34d399",
+                  "#f59e0b",
+                  "#ef4444",
+                ].map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setColor(c)}
+                    className="h-7 w-7 rounded-md border border-white/10 hover:brightness-110"
+                    style={{ backgroundColor: c }}
+                    aria-label={`pick ${c}`}
+                    title={c}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs text-white/60">Stroke Width: {width}px</label>
+              <input
+                type="range"
+                min={1}
+                max={16}
+                value={width}
+                onChange={(e) => setWidth(+e.target.value)}
+                className="w-full accent-cyan-400"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs text-white/60">Smoothing: {smooth}</label>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={smooth}
+                onChange={(e) => setSmooth(+e.target.value)}
+                className="w-full accent-cyan-400"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs text-white/60">Show Dots</label>
+              <label className="inline-flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  className="accent-cyan-400"
+                  checked={showDots}
+                  onChange={(e) => setShowDots(e.target.checked)}
+                />
+                입력 지점 표시
+              </label>
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs text-white/60">Show Keys</label>
+              <label className="inline-flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  className="accent-cyan-400"
+                  checked={showKeys}
+                  onChange={(e) => setShowKeys(e.target.checked)}
+                />
+                키보드 표시
+              </label>
+            </div>
+          </section>
+        )}
+
+        <section className="mt-auto w-full flex items-center justify-between text-xs text-white/40">
+          <span>Layout: QWERTY</span>
+          <span>{points.length} points</span>
+        </section>
       </main>
 
       <footer className="mx-auto max-w-5xl px-4 py-6 text-xs text-white/40">
