@@ -62,8 +62,8 @@ export default function App() {
       <header className="sticky top-0 z-20 bg-[#0a0a0a] border-b border-white/20">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
-              <span className="text-cyan-300 text-xs font-bold">KS</span>
+            <div className="h-7 w-7 rounded-md bg-white/10 ring-1 ring-white/20 grid place-items-center">
+              <span className="text-white text-xs font-bold">KS</span>
             </div>
             <h1 className="text-lg font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-emerald-300">
               KeySignature
@@ -104,7 +104,7 @@ export default function App() {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full max-w-md px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-cyan-500/60 text-center"
+          className="w-full max-w-md h-14 px-6 rounded-xl bg-white/10 border border-white/20 text-lg text-center outline-none focus:ring-2 focus:ring-cyan-500/60 shadow-sm"
         />
 
         <section className="w-full">
@@ -119,23 +119,19 @@ export default function App() {
             keys={qwertyLayout.keys}
             onKeyClick={handleKeyClick}
           />
-          <div className="mt-2 flex items-center justify-between text-xs text-white/40">
-            <span>Layout: QWERTY</span>
-            <span>{points.length} points</span>
-          </div>
         </section>
 
-        <div className="mt-auto w-full">
-          <div className="flex justify-center">
-            <button
-              onClick={() => setShowOptions((v) => !v)}
-              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
-            >
-              Options
-            </button>
-          </div>
-          {showOptions && (
-            <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 grid gap-4 sm:grid-cols-2">
+        <div className="w-full flex justify-center mt-4">
+          <button
+            onClick={() => setShowOptions((v) => !v)}
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-white text-sm font-medium shadow-md"
+          >
+            Options
+          </button>
+        </div>
+
+        {showOptions && (
+          <section className="w-full mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 grid gap-4 sm:grid-cols-2">
               <div className="grid gap-2">
                 <label className="text-xs text-white/60">Stroke Color</label>
                 <div className="flex items-center gap-3">
@@ -227,7 +223,11 @@ export default function App() {
               </div>
             </section>
           )}
-        </div>
+
+        <section className="mt-auto w-full flex items-center justify-between text-xs text-white/40">
+          <span>Layout: QWERTY</span>
+          <span>{points.length} points</span>
+        </section>
       </main>
 
       <footer className="mx-auto max-w-5xl px-4 py-6 text-xs text-white/40">
