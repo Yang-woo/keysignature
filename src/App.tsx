@@ -62,8 +62,8 @@ export default function App() {
       <header className="sticky top-0 z-20 bg-[#0a0a0a] border-b border-white/20">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
-              <span className="text-cyan-300 text-xs font-bold">KS</span>
+            <div className="h-7 w-7 rounded-md bg-white/10 ring-1 ring-white/20 grid place-items-center">
+              <span className="text-white text-xs font-bold">KS</span>
             </div>
             <h1 className="text-lg font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-emerald-300">
               KeySignature
@@ -104,7 +104,7 @@ export default function App() {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full max-w-md px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-cyan-500/60 text-center"
+          className="w-full max-w-md px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-center text-lg outline-none focus:ring-2 focus:ring-cyan-500/60"
         />
 
         <section className="w-full">
@@ -119,17 +119,17 @@ export default function App() {
             keys={qwertyLayout.keys}
             onKeyClick={handleKeyClick}
           />
-          <div className="mt-2 flex items-center justify-between text-xs text-white/40">
+        </section>
+
+        <section className="mt-auto w-full">
+          <div className="flex items-center justify-between text-xs text-white/40">
             <span>Layout: QWERTY</span>
             <span>{points.length} points</span>
           </div>
-        </section>
-
-        <div className="mt-auto w-full">
-          <div className="flex justify-center">
+          <div className="mt-4 flex justify-center">
             <button
               onClick={() => setShowOptions((v) => !v)}
-              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-sm"
+              className="px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-black font-medium shadow-lg hover:opacity-90 focus:outline-none"
             >
               Options
             </button>
@@ -227,7 +227,7 @@ export default function App() {
               </div>
             </section>
           )}
-        </div>
+        </section>
       </main>
 
       <footer className="mx-auto max-w-5xl px-4 py-6 text-xs text-white/40">
