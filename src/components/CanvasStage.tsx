@@ -55,7 +55,7 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
       <svg
         ref={ref}
         viewBox={`0 0 ${vb.w} ${vb.h}`}
-        className="w-full h-[50vh] sm:h-[60vh] bg-[#0a0a0a] rounded-xl ring-1 ring-white/20"
+        className="w-full h-full bg-[#0a0a0a] rounded-2xl shadow-lg"
       >
         {/* 배경 */}
         <rect x={0} y={0} width={vb.w} height={vb.h} fill="#0a0a0a" />
