@@ -12,22 +12,59 @@ const key = (
 ): KeyCoord => ({ id, x, y, w, h, label });
 
 // 행 오프셋 (전통 QWERTY 0/0.5u/1u 스태거)
-const y0 = 0; // QWERTYUIOP
-const y1 = unit; // ASDFGHJKL
-const y2 = unit * 2; // ZXCVBNM
-const spaceY = unit * 3; // Space row
+const yNum = 0; // 숫자열
+const y0 = unit; // QWERTYUIOP[]\
+const y1 = unit * 2; // ASDFGHJKL;'
+const y2 = unit * 3; // ZXCVBNM,./
+const spaceY = unit * 4; // Space row
 const off1 = unit * 0.5; // A-row offset
 const off2 = unit * 1.0; // Z-row offset
 
-const rowQ = "QWERTYUIOP".split("");
-const rowA = "ASDFGHJKL".split("");
-const rowZ = "ZXCVBNM".split("");
+const rowNum: [KeyId, string][] = [
+  ["Digit1", "1"],
+  ["Digit2", "2"],
+  ["Digit3", "3"],
+  ["Digit4", "4"],
+  ["Digit5", "5"],
+  ["Digit6", "6"],
+  ["Digit7", "7"],
+  ["Digit8", "8"],
+  ["Digit9", "9"],
+  ["Digit0", "0"],
+  ["Minus", "-"],
+  ["Equal", "="],
+];
+
+const rowQ: [KeyId, string][] = [
+  ..."QWERTYUIOP".split("").map((ch) => [`Key${ch}`, ch] as [KeyId, string]),
+  ["BracketLeft", "["],
+  ["BracketRight", "]"],
+  ["Backslash", "\\"],
+];
+
+const rowA: [KeyId, string][] = [
+  ..."ASDFGHJKL".split("").map((ch) => [`Key${ch}`, ch] as [KeyId, string]),
+  ["Semicolon", ";"],
+  ["Quote", "'"],
+];
+
+const rowZ: [KeyId, string][] = [
+  ..."ZXCVBNM".split("").map((ch) => [`Key${ch}`, ch] as [KeyId, string]),
+  ["Comma", ","],
+  ["Period", "."],
+  ["Slash", "/"],
+];
 
 const keys: KeyCoord[] = [
-  ...rowQ.map((ch, i) => key(`Key${ch}`, unit * i, y0, unit, unit, ch)),
-  ...rowA.map((ch, i) => key(`Key${ch}`, off1 + unit * i, y1, unit, unit, ch)),
-  ...rowZ.map((ch, i) => key(`Key${ch}`, off2 + unit * i, y2, unit, unit, ch)),
-  key("Space", unit * 2, spaceY, unit * 5, unit, "Space"),
+  ...rowNum.map(([id, label], i) => key(id, unit * i, yNum, unit, unit, label)),
+  ...rowQ.map(([id, label], i) => key(id, unit * i, y0, unit, unit, label)),
+  ...rowA.map(([id, label], i) =>
+    key(id, off1 + unit * i, y1, unit, unit, label)
+  ),
+  ...rowZ.map(([id, label], i) =>
+    key(id, off2 + unit * i, y2, unit, unit, label)
+  ),
+  key("Space", unit * 3, spaceY, unit * 5, unit, "Space"),
 ];
 
 const charToKey: Record<string, KeyId> = {};
@@ -35,11 +72,24 @@ const charToKey: Record<string, KeyId> = {};
   charToKey[c] = `Key${c.toUpperCase()}`;
   charToKey[c.toUpperCase()] = `Key${c.toUpperCase()}`;
 });
+"1234567890".split("").forEach((c) => {
+  charToKey[c] = `Digit${c}`;
+});
+charToKey["-"] = "Minus";
+charToKey["="] = "Equal";
+charToKey["["] = "BracketLeft";
+charToKey["]"] = "BracketRight";
+charToKey["\\"] = "Backslash";
+charToKey[";"] = "Semicolon";
+charToKey["'"] = "Quote";
+charToKey[","] = "Comma";
+charToKey["."] = "Period";
+charToKey["/"] = "Slash";
 charToKey[" "] = "Space";
 
 export const qwertyLayout: Layout = {
   id: "qwerty",
-  name: "QWERTY (US, letters+space)",
+  name: "QWERTY (US)",
   unit,
   keys,
   mapCharToKeyIds: (ch: string) => {
