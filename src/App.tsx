@@ -1,7 +1,7 @@
 import { useMemo, useState, useRef } from "react";
 import CanvasStage from "./components/CanvasStage";
 import { qwertyLayout } from "./layouts/qwerty";
-import { downloadSVG, downloadPNG } from "./lib/export";
+import { downloadSVG, downloadPNG } from "./utils/export";
 import type { KeyCoord } from "./types";
 
 function toPoints(text: string, keys: KeyCoord[]) {

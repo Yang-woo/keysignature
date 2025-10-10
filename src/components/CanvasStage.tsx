@@ -1,5 +1,5 @@
 import { useMemo, useEffect, forwardRef } from "react";
-import { buildPathFromPoints } from "../lib/path";
+import { buildPathFromPoints } from "../utils/path";
 import type { KeyCoord } from "../types";
 
 export type Pt = { x: number; y: number };
