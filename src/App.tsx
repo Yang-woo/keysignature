@@ -61,7 +61,7 @@ export default function App() {
   return (
     <div className="h-[calc(100vh-32px-env(safe-area-inset-bottom))] flex flex-col bg-[#0a0a0a] text-white selection:bg-cyan-400/20">
       <header className="sticky top-0 z-20 bg-[#0a0a0a] border-b border-white/20">
-        <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+        <div className="mx-auto max-w-[1920px] px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
               <span className="text-cyan-300 text-xs font-bold">KS</span>
@@ -101,7 +101,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full mx-auto max-w-5xl px-4 py-5 flex flex-col gap-6 min-h-0 overflow-hidden">
+      <main className="flex-1 w-full mx-auto max-w-[1920px] px-4 py-5 flex flex-col gap-6 min-h-0 overflow-hidden">
         {/* 1) 상단 정보/입력 섹션 - absolute 제거 */}
         <section className="w-full min-h-[15vh] flex flex-col justify-center">
           <div className="flex items-center justify-between mb-4">
@@ -268,7 +268,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="mx-auto max-w-5xl px-4 py-6 text-xs text-white/40 mb-8 shrink-0 pb-[env(safe-area-inset-bottom)]">
+      <footer className="mx-auto max-w-[1920px] px-4 py-6 text-xs text-white/40 mb-8 shrink-0 pb-[env(safe-area-inset-bottom)]">
         © {new Date().getFullYear()} KeySignature
       </footer>
     </div>
