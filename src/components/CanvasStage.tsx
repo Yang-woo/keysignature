@@ -86,8 +86,8 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
                 {k.label && (
                   <text
                     x={k.x + (k.w ?? 60) / 2}
-                    y={k.y + (k.h ?? 60) / 2 + 4}
-                    fontSize={12}
+                    y={k.y + (k.h ?? 60) / 2 + 10}
+                    fontSize={36}
                     textAnchor="middle"
                     fill={isDark ? "#7a7a7a" : "#6b7280"}
                   >

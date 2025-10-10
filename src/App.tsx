@@ -147,7 +147,7 @@ export default function App() {
         <section className="w-full min-h-[15vh] flex flex-col justify-center">
           <div className="flex items-center justify-between mb-4">
             <div className={
-              `rounded-md px-3.5 py-2 text-sm md:text-base ` +
+              `rounded-2xl px-[42px] py-[24px] text-[42px] md:text-[48px] ` +
               (isDark
                 ? "text-rose-300 bg-rose-500/10 border border-rose-400/40"
                 : "text-rose-700 bg-rose-100 border border-rose-200")
@@ -155,7 +155,7 @@ export default function App() {
               <span className="tracking-tight">TYPE : QWERTY</span>
             </div>
             <div className={
-              `rounded-md px-3.5 py-2 text-sm md:text-base ` +
+              `rounded-2xl px:[42px] py-[24px] text-[42px] md:text-[48px] ` +
               (isDark
                 ? "text-amber-300 bg-amber-500/10 border border-amber-400/40"
                 : "text-amber-700 bg-amber-100 border border-amber-200")
