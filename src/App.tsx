@@ -66,6 +66,22 @@ export default function App() {
 
   const isDark = theme === "dark";
 
+  // 모달 열릴 때 스크롤 잠금 및 패딩 보정으로 레이아웃 출렁임 방지
+  useEffect(() => {
+    const body = document.body as HTMLBodyElement;
+    const prevOverflow = body.style.overflow;
+    const prevPaddingRight = body.style.paddingRight;
+    if (showOptions) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    return () => {
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPaddingRight;
+    };
+  }, [showOptions]);
+
   return (
     <div className={
       `h-[calc(100vh-32px-env(safe-area-inset-bottom))] flex flex-col selection:bg-cyan-400/20 ` +
@@ -210,132 +226,159 @@ export default function App() {
           </div>
         </section>
 
-        {/* 3) 옵션 섹션 */}
-        <section className="w-full">
-          <div className="flex items-start gap-3">
-            <button
-              onClick={() => setShowOptions((v) => !v)}
+        {/* 3) 옵션 FAB + 모달 */}
+        {/* 플로팅 옵션 버튼 (3배 확대) */}
+        <button
+          onClick={() => setShowOptions(true)}
+          className={
+            `fixed right-6 bottom-6 md:right-8 md:bottom-8 z-40 rounded-full shadow-xl backdrop-blur-sm ` +
+            `h-[84px] w-[84px] md:h-[96px] md:w-[96px] ` + // 3배 크기
+            (isDark
+              ? "bg-white/10 hover:bg-white/15 border border-white/20 text-white"
+              : "bg-black/5 hover:bg-black/10 border border-black/10 text-black")
+          }
+          title="옵션 열기"
+          aria-label="옵션 열기"
+        >
+          <span className="text-[36px] leading-none">⚙️</span>
+        </button>
+
+        {/* 모달 오버레이 */}
+        {showOptions && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div
+              className={isDark ? "absolute inset-0 bg-black/50" : "absolute inset-0 bg-black/30"}
+              onClick={() => setShowOptions(false)}
+            />
+            <div
               className={
-                `px-4 md:px-5 py-2.5 rounded-full text-sm md:text-[15px] backdrop-blur-sm shadow-sm ` +
-                (isDark ? "bg-white/10 hover:bg-white/15" : "bg-black/5 hover:bg-black/10")
-              }
-              title="옵션 열기"
-            >
-              ⚙️ Options
-            </button>
-            {showOptions && (
-              <div className={
-                `w-[min(92vw,720px)] md:w-[520px] rounded-2xl backdrop-blur-md shadow-2xl p-4 md:p-5 ` +
+                `relative z-10 w-[min(92vw,960px)] md:w-[720px] max-h-[85vh] overflow-auto rounded-2xl p-6 md:p-7 ` +
                 (isDark ? "bg-white/[0.06]" : "bg-black/[0.04]")
-              }>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="grid gap-2">
-                    <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
-                      Stroke Color
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="color"
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                        className="h-10 w-10 cursor-pointer bg-transparent rounded-md overflow-hidden"
-                        title="색상"
-                      />
-                      <input
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                        className={
-                          `flex-1 px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-cyan-500/50 text-sm ` +
-                          (isDark ? "bg-white/[0.06]" : "bg-black/[0.05]")
-                        }
-                      />
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {[
-                        "#22d3ee",
-                        "#38bdf8",
-                        "#60a5fa",
-                        "#a78bfa",
-                        "#f472b6",
-                        "#34d399",
-                        "#f59e0b",
-                        "#ef4444",
-                      ].map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => setColor(c)}
-                          className="h-7 w-7 rounded-md hover:brightness-110 ring-1 ring-white/10"
-                          style={{ backgroundColor: c }}
-                          aria-label={`pick ${c}`}
-                          title={c}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid gap-2">
-                    <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
-                      Stroke Width: {width}px
-                    </label>
+              }
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h2 className={"text-xl font-semibold " + (isDark ? "text-white" : "text-black")}>Options</h2>
+                <button
+                  onClick={() => setShowOptions(false)}
+                  className={
+                    `h-10 w-10 grid place-items-center rounded-md ` +
+                    (isDark ? "bg-white/10 hover:bg-white/15" : "bg-black/5 hover:bg-black/10")
+                  }
+                  aria-label="닫기"
+                  title="닫기"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-2">
+                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                    Stroke Color
+                  </label>
+                  <div className="flex items-center gap-3">
                     <input
-                      type="range"
-                      min={1}
-                      max={16}
-                      value={width}
-                      onChange={(e) => setWidth(+e.target.value)}
-                      className="w-full accent-cyan-400"
+                      type="color"
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                      className="h-10 w-10 cursor-pointer bg-transparent rounded-md overflow-hidden"
+                      title="색상"
+                    />
+                    <input
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                      className={
+                        `flex-1 px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-cyan-500/50 text-sm ` +
+                        (isDark ? "bg-white/[0.06]" : "bg-black/[0.05]")
+                      }
                     />
                   </div>
-
-                  <div className="grid gap-2">
-                    <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
-                      Smoothing: {smooth}
-                    </label>
-                    <input
-                      type="range"
-                      min={0}
-                      max={1}
-                      step={0.05}
-                      value={smooth}
-                      onChange={(e) => setSmooth(+e.target.value)}
-                      className="w-full accent-cyan-400"
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
-                      Show Dots
-                    </label>
-                    <label className="inline-flex items-center gap-2 text-sm">
-                      <input
-                        type="checkbox"
-                        className="accent-cyan-400"
-                        checked={showDots}
-                        onChange={(e) => setShowDots(e.target.checked)}
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {[
+                      "#22d3ee",
+                      "#38bdf8",
+                      "#60a5fa",
+                      "#a78bfa",
+                      "#f472b6",
+                      "#34d399",
+                      "#f59e0b",
+                      "#ef4444",
+                    ].map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setColor(c)}
+                        className="h-7 w-7 rounded-md hover:brightness-110 ring-1 ring-white/10"
+                        style={{ backgroundColor: c }}
+                        aria-label={`pick ${c}`}
+                        title={c}
                       />
-                      입력 지점 표시
-                    </label>
-                  </div>
-
-                  <div className="grid gap-2">
-                    <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
-                      Show Keys
-                    </label>
-                    <label className="inline-flex items-center gap-2 text-sm">
-                      <input
-                        type="checkbox"
-                        className="accent-cyan-400"
-                        checked={showKeys}
-                        onChange={(e) => setShowKeys(e.target.checked)}
-                      />
-                      키보드 표시
-                    </label>
+                    ))}
                   </div>
                 </div>
+
+                <div className="grid gap-2">
+                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                    Stroke Width: {width}px
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={16}
+                    value={width}
+                    onChange={(e) => setWidth(+e.target.value)}
+                    className="w-full accent-cyan-400"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                    Smoothing: {smooth}
+                  </label>
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={smooth}
+                    onChange={(e) => setSmooth(+e.target.value)}
+                    className="w-full accent-cyan-400"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                    Show Dots
+                  </label>
+                  <label className="inline-flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      className="accent-cyan-400"
+                      checked={showDots}
+                      onChange={(e) => setShowDots(e.target.checked)}
+                    />
+                    입력 지점 표시
+                  </label>
+                </div>
+
+                <div className="grid gap-2">
+                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                    Show Keys
+                  </label>
+                  <label className="inline-flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      className="accent-cyan-400"
+                      checked={showKeys}
+                      onChange={(e) => setShowKeys(e.target.checked)}
+                    />
+                    키보드 표시
+                  </label>
+                </div>
               </div>
-            )}
+            </div>
           </div>
-        </section>
+        )}
       </main>
 
       <footer className={
