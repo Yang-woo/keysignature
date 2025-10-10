@@ -51,16 +51,27 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
       });
     }, [points]);
 
-    const isDark = typeof document !== "undefined" && document.documentElement.getAttribute("data-theme") !== "light";
+    const isDark =
+      typeof document !== "undefined" &&
+      document.documentElement.getAttribute("data-theme") !== "light";
 
     return (
       <svg
         ref={ref}
         viewBox={`0 0 ${vb.w} ${vb.h}`}
-        className={"w-full h-full rounded-2xl shadow-lg " + (isDark ? "bg-[#0a0a0a]" : "bg-white")}
+        className={
+          "w-full h-full rounded-2xl shadow-lg " +
+          (isDark ? "bg-[#0a0a0a]" : "bg-white")
+        }
       >
         {/* 배경 */}
-        <rect x={0} y={0} width={vb.w} height={vb.h} fill={isDark ? "#0a0a0a" : "#ffffff"} />
+        <rect
+          x={0}
+          y={0}
+          width={vb.w}
+          height={vb.h}
+          fill={isDark ? "#0a0a0a" : "#ffffff"}
+        />
 
         {/* 키보드 오버레이 */}
         {showKeys &&

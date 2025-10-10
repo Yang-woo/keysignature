@@ -72,7 +72,8 @@ export default function App() {
     const prevOverflow = body.style.overflow;
     const prevPaddingRight = body.style.paddingRight;
     if (showOptions) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
       body.style.overflow = "hidden";
       if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
     }
@@ -83,14 +84,18 @@ export default function App() {
   }, [showOptions]);
 
   return (
-    <div className={
-      `h-[calc(100vh-32px-env(safe-area-inset-bottom))] flex flex-col selection:bg-cyan-400/20 ` +
-      (isDark ? "bg-[#0a0a0a] text-white" : "bg-white text-[#0a0a0a]")
-    }>
-      <header className={
-        `sticky top-0 z-20 border-b ` +
-        (isDark ? "bg-[#0a0a0a] border-white/20" : "bg-white border-black/10")
-      }>
+    <div
+      className={
+        `h-[calc(100vh-32px-env(safe-area-inset-bottom))] flex flex-col selection:bg-cyan-400/20 ` +
+        (isDark ? "bg-[#0a0a0a] text-white" : "bg-white text-[#0a0a0a]")
+      }
+    >
+      <header
+        className={
+          `sticky top-0 z-20 border-b ` +
+          (isDark ? "bg-[#0a0a0a] border-white/20" : "bg-white border-black/10")
+        }
+      >
         <div className="mx-auto max-w-[1920px] px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-7 w-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center">
@@ -106,7 +111,9 @@ export default function App() {
           <div className="flex items-center gap-2">
             <div className="sm:flex items-center gap-2">
               <button
-                onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+                onClick={() =>
+                  setTheme((t) => (t === "dark" ? "light" : "dark"))
+                }
                 title="테마 전환"
                 className={
                   `px-3 py-1.5 rounded-lg text-sm ` +
@@ -162,20 +169,24 @@ export default function App() {
         {/* 1) 상단 정보/입력 섹션 - absolute 제거 */}
         <section className="w-full min-h-[15vh] flex flex-col justify-center">
           <div className="flex items-center justify-between mb-4">
-            <div className={
-              `rounded-2xl px-[42px] py-[24px] text-[42px] md:text-[48px] ` +
-              (isDark
-                ? "text-rose-300 bg-rose-500/10 border border-rose-400/40"
-                : "text-rose-700 bg-rose-100 border border-rose-200")
-            }>
+            <div
+              className={
+                `rounded-2xl px-[42px] py-[24px] text-[42px] md:text-[48px] ` +
+                (isDark
+                  ? "text-rose-300 bg-rose-500/10 border border-rose-400/40"
+                  : "text-rose-700 bg-rose-100 border border-rose-200")
+              }
+            >
               <span className="tracking-tight">TYPE : QWERTY</span>
             </div>
-            <div className={
-              `rounded-2xl px:[42px] py-[24px] text-[42px] md:text-[48px] ` +
-              (isDark
-                ? "text-amber-300 bg-amber-500/10 border border-amber-400/40"
-                : "text-amber-700 bg-amber-100 border border-amber-200")
-            }>
+            <div
+              className={
+                `rounded-2xl px:[42px] py-[24px] text-[42px] md:text-[48px] ` +
+                (isDark
+                  ? "text-amber-300 bg-amber-500/10 border border-amber-400/40"
+                  : "text-amber-700 bg-amber-100 border border-amber-200")
+              }
+            >
               <span className="tabular-nums">POINTS : {points.length}</span>
             </div>
           </div>
@@ -247,7 +258,11 @@ export default function App() {
         {showOptions && (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
-              className={isDark ? "absolute inset-0 bg-black/50" : "absolute inset-0 bg-black/30"}
+              className={
+                isDark
+                  ? "absolute inset-0 bg-black/50"
+                  : "absolute inset-0 bg-black/30"
+              }
               onClick={() => setShowOptions(false)}
             />
             <div
@@ -259,12 +274,21 @@ export default function App() {
               aria-modal="true"
             >
               <div className="flex items-center justify-between mb-4">
-                <h2 className={"text-xl font-semibold " + (isDark ? "text-white" : "text-black")}>Options</h2>
+                <h2
+                  className={
+                    "text-xl font-semibold " +
+                    (isDark ? "text-white" : "text-black")
+                  }
+                >
+                  Options
+                </h2>
                 <button
                   onClick={() => setShowOptions(false)}
                   className={
                     `h-10 w-10 grid place-items-center rounded-md ` +
-                    (isDark ? "bg-white/10 hover:bg-white/15" : "bg-black/5 hover:bg-black/10")
+                    (isDark
+                      ? "bg-white/10 hover:bg-white/15"
+                      : "bg-black/5 hover:bg-black/10")
                   }
                   aria-label="닫기"
                   title="닫기"
@@ -274,7 +298,12 @@ export default function App() {
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="grid gap-2">
-                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                  <label
+                    className={
+                      "text-[13px] " +
+                      (isDark ? "text-white/70" : "text-black/70")
+                    }
+                  >
                     Stroke Color
                   </label>
                   <div className="flex items-center gap-3">
@@ -318,7 +347,12 @@ export default function App() {
                 </div>
 
                 <div className="grid gap-2">
-                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                  <label
+                    className={
+                      "text-[13px] " +
+                      (isDark ? "text-white/70" : "text-black/70")
+                    }
+                  >
                     Stroke Width: {width}px
                   </label>
                   <input
@@ -332,7 +366,12 @@ export default function App() {
                 </div>
 
                 <div className="grid gap-2">
-                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                  <label
+                    className={
+                      "text-[13px] " +
+                      (isDark ? "text-white/70" : "text-black/70")
+                    }
+                  >
                     Smoothing: {smooth}
                   </label>
                   <input
@@ -347,7 +386,12 @@ export default function App() {
                 </div>
 
                 <div className="grid gap-2">
-                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                  <label
+                    className={
+                      "text-[13px] " +
+                      (isDark ? "text-white/70" : "text-black/70")
+                    }
+                  >
                     Show Dots
                   </label>
                   <label className="inline-flex items-center gap-2 text-sm">
@@ -362,7 +406,12 @@ export default function App() {
                 </div>
 
                 <div className="grid gap-2">
-                  <label className={"text-[13px] " + (isDark ? "text-white/70" : "text-black/70")}>
+                  <label
+                    className={
+                      "text-[13px] " +
+                      (isDark ? "text-white/70" : "text-black/70")
+                    }
+                  >
                     Show Keys
                   </label>
                   <label className="inline-flex items-center gap-2 text-sm">
@@ -381,10 +430,12 @@ export default function App() {
         )}
       </main>
 
-      <footer className={
-        `mx-auto max-w-[1920px] px-4 py-6 text-xs mb-8 shrink-0 pb-[env(safe-area-inset-bottom)] ` +
-        (isDark ? "text-white/40" : "text-black/50")
-      }>
+      <footer
+        className={
+          `mx-auto max-w-[1920px] px-4 py-6 text-xs mb-8 shrink-0 pb-[env(safe-area-inset-bottom)] ` +
+          (isDark ? "text-white/40" : "text-black/50")
+        }
+      >
         © {new Date().getFullYear()} KeySignature
       </footer>
     </div>
