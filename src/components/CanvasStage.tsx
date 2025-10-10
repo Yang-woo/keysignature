@@ -51,14 +51,16 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
       });
     }, [points]);
 
+    const isDark = typeof document !== "undefined" && document.documentElement.getAttribute("data-theme") !== "light";
+
     return (
       <svg
         ref={ref}
         viewBox={`0 0 ${vb.w} ${vb.h}`}
-        className="w-full h-full bg-[#0a0a0a] rounded-2xl shadow-lg"
+        className={"w-full h-full rounded-2xl shadow-lg " + (isDark ? "bg-[#0a0a0a]" : "bg-white")}
       >
         {/* 배경 */}
-        <rect x={0} y={0} width={vb.w} height={vb.h} fill="#0a0a0a" />
+        <rect x={0} y={0} width={vb.w} height={vb.h} fill={isDark ? "#0a0a0a" : "#ffffff"} />
 
         {/* 키보드 오버레이 */}
         {showKeys &&
@@ -77,8 +79,8 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
                   height={(k.h ?? 60) - 4}
                   rx={rx}
                   ry={rx}
-                  fill="#0a0a0a"
-                  stroke="#2a2a2a"
+                  fill={isDark ? "#0a0a0a" : "#ffffff"}
+                  stroke={isDark ? "#2a2a2a" : "#e5e7eb"}
                   strokeWidth={1.5}
                 />
                 {k.label && (
@@ -87,7 +89,7 @@ const CanvasStage = forwardRef<SVGSVGElement, Props>(
                     y={k.y + (k.h ?? 60) / 2 + 4}
                     fontSize={12}
                     textAnchor="middle"
-                    fill="#7a7a7a"
+                    fill={isDark ? "#7a7a7a" : "#6b7280"}
                   >
                     {k.label}
                   </text>
