@@ -171,10 +171,10 @@ export default function App() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               className={
-                `w-[min(96vw,900px)] h-[clamp(56px,8vh,120px)] md:h-[clamp(64px,10vh,140px)] px-8 md:px-10 py-0 rounded-2xl bg-transparent outline-none border-0 ring-0 focus:border-0 focus:ring-0 appearance-none text-center font-semibold tracking-wide caret-cyan-400 ` +
+                `w-[min(96vw,900px)] h-[clamp(168px,24vh,360px)] md:h-[clamp(192px,30vh,420px)] px-24 md:px-30 py-0 rounded-2xl bg-transparent outline-none border-0 ring-0 focus:border-0 focus:ring-0 appearance-none text-center font-semibold tracking-wide caret-cyan-400 ` +
                 (isDark
-                  ? "text-[clamp(18px,4.2vh,40px)] md:text-[clamp(20px,5vh,56px)] placeholder-white/30"
-                  : "text-[clamp(18px,4.2vh,40px)] md:text-[clamp(20px,5vh,56px)] placeholder-black/30")
+                  ? "text-[clamp(54px,12.6vh,120px)] md:text-[clamp(60px,15vh,168px)] placeholder-white/30"
+                  : "text-[clamp(54px,12.6vh,120px)] md:text-[clamp(60px,15vh,168px)] placeholder-black/30")
               }
             />
           </div>
